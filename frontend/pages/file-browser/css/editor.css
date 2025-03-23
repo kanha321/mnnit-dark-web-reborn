@@ -1,0 +1,182 @@
+/* Styles for the editor component */
+
+/* Editor tabs */
+.editor-tabs {
+  display: flex;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  overflow-x: auto;
+  white-space: nowrap;
+  height: 35px;
+}
+
+.editor-tab {
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  height: 100%;
+  min-width: 120px;
+  max-width: 180px;
+  font-size: 0.85rem;
+  position: relative;
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.editor-tab.active {
+  background-color: var(--md-sys-color-surface);
+}
+
+.editor-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--md-sys-color-primary);
+}
+
+/* Preview tab styling - enhance distinction */
+.editor-tab.preview-tab {
+  background-color: var(--md-sys-color-surface-container-high);
+  min-width: 120px;
+  max-width: 120px;
+  border-left: 2px solid var(--md-sys-color-primary);
+}
+
+.editor-tab.preview-tab .tab-name {
+  color: var(--md-sys-color-primary);
+  font-style: italic;
+}
+
+.editor-tab.preview-tab.active {
+  background-color: var(--md-sys-color-primary-container);
+  box-shadow: inset 0 -2px 0 var(--md-sys-color-primary);
+}
+
+.editor-tab.preview-tab.active .tab-name {
+  color: var(--md-sys-color-on-primary-container);
+  font-weight: 500;
+}
+
+.editor-tab.preview-tab::before {
+  content: "👁️"; /* Eye icon to indicate preview */
+  font-size: 10px;
+  margin-right: 4px;
+  opacity: 0.7;
+}
+
+/* Add a hint tooltip on preview tabs */
+.editor-tab.preview-tab::after {
+  content: "Click to make permanent";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.editor-tab.preview-tab:hover::after {
+  opacity: 0.9;
+}
+
+.tab-icon {
+  opacity: 0.8;
+}
+
+.tab-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-close {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.tab-close:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+  opacity: 1;
+}
+
+/* Editor content area */
+.editor-content {
+  flex: 1;
+  padding: 0;
+  overflow: auto;
+  position: relative;
+}
+
+.preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.preview-placeholder-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.preview-placeholder p {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+/* File previews */
+.file-preview {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.code-preview {
+  padding: 16px;
+  background-color: var(--md-sys-color-surface);
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  height: 100%;
+  margin: 0;
+  border: none;
+}
+
+.image-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Removed editor-preview-overlay styles and all related hover preview styles */

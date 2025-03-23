@@ -1,0 +1,208 @@
+/* Styles for UI components like loading indicators, modals, and toasts */
+
+/* Enhanced loading indicator */
+.loading-indicator {
+  text-align: center;
+  padding: 40px;
+  color: var(--md-sys-color-on-surface-variant);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-indicator:before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  border: 3px solid transparent;
+  border-top-color: var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading {
+  opacity: 0.8;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Enhanced error message */
+.error-message {
+  padding: 16px;
+  color: var(--md-sys-color-error);
+  animation: slideInUp 0.3s ease-out;
+  text-align: center;
+}
+
+.error-details {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-on-surface-variant);
+  animation: fadeIn 0.3s ease-out 0.1s both;
+}
+
+/* File preview modal */
+.file-preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.file-preview-content {
+  background-color: var(--md-sys-color-surface);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.file-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.file-preview-details {
+  padding: 16px;
+}
+
+.file-preview-details p {
+  margin-bottom: 8px;
+}
+
+.file-preview-actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* Enhanced toast notifications */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  padding: 12px 24px;
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1000;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  animation: bounce 0.5s ease 0.3s both;
+}
+
+.toast-info {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.toast-error {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+.toast-success {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+/* Icon styles for Nerd Font */
+.icon-element,
+.file-icon,
+.theme-icon,
+.tab-icon,
+.tab-close {
+  font-family: 'Symbols Nerd Font', monospace !important;
+}
+
+.theme-icon {
+  margin-right: 8px;
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+}
+
+/* File hover effects */
+.file-item {
+  transition: background-color 0.15s ease, transform 0.15s ease, border-left 0.2s ease;
+}
+
+.file-item:hover {
+  border-left: 3px solid var(--md-sys-color-primary-container);
+  padding-left: calc(16px - 3px);
+}
+
+.file-item.active {
+  border-left: 3px solid var(--md-sys-color-primary);
+  padding-left: calc(16px - 3px);
+}
+
+/* Button hover effects */
+.md-button {
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.md-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.md-button:active {
+  transform: translateY(1px);
+}
+
+/* Ripple effect */
+.md-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.md-button:active:after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  20% { transform: scale(25); opacity: 1; }
+  100% { transform: scale(50); opacity: 0; }
+}

@@ -1,0 +1,59 @@
+/**
+ * Resize handles styles
+ * Interactive elements that allow resizing panels
+ */
+
+.resize-handle {
+  /* Positioning */
+  position: absolute;
+  z-index: 10;
+  
+  /* Styling */
+  transition: background-color 0.2s;
+}
+
+.resize-handle:hover {
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.resize-handle.vertical {
+  /* Positioning */
+  top: 0;
+  bottom: 0;
+  left: calc(48px + var(--explorer-width) - 2px);
+  
+  /* Sizing */
+  width: 5px;
+  
+  /* Styling */
+  cursor: ew-resize;
+}
+
+.resize-handle.horizontal {
+  /* Positioning */
+  left: 48px;
+  right: 0;
+  bottom: var(--panel-height);
+  
+  /* Sizing */
+  height: 5px;
+  
+  /* Styling */
+  cursor: ns-resize;
+}
+
+/* Active resizing state */
+body.resizing {
+  cursor: grabbing;
+  user-select: none;
+}
+
+body.resizing .resize-handle.vertical {
+  background-color: var(--md-sys-color-primary);
+  width: 3px;
+}
+
+body.resizing .resize-handle.horizontal {
+  background-color: var(--md-sys-color-primary);
+  height: 3px;
+}

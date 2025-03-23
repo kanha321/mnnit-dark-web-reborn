@@ -1,0 +1,118 @@
+/**
+ * Settings panel styles
+ * Panel for adjusting application settings
+ */
+
+.settings-panel {
+  /* Positioning */
+  position: fixed;
+  left: 48px;
+  bottom: 0;
+  z-index: 200;
+  
+  /* Sizing */
+  width: 300px;
+  max-height: 500px;
+  
+  /* Display */
+  overflow-y: auto;
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  
+  /* Remove transition properties from here as they're defined in animations/components/panels.css */
+}
+
+.settings-panel.visible {
+  transform: translateY(0);
+}
+
+.settings-header {
+  /* Display */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  /* Styling */
+  padding: 10px 16px;
+  background-color: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.settings-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.settings-content {
+  padding: 16px;
+}
+
+.settings-section {
+  margin-bottom: 24px;
+}
+
+.settings-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.theme-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.theme-option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.theme-option {
+  /* Display */
+  text-align: left;
+  
+  /* Sizing */
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 4px;
+  cursor: pointer;
+  
+  /* Animation */
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.theme-option:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+  transform: translateY(-1px);
+}
+
+.theme-option.active {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-color: var(--md-sys-color-primary);
+}
+
+.close-button .icon-element {
+  font-family: 'Symbols Nerd Font', monospace !important;
+  font-size: 1rem;
+}
+
+/* Adjust activity button for settings */
+.activity-button#settings-button {
+  position: absolute;
+  bottom: 16px;
+  left: 6px;
+}

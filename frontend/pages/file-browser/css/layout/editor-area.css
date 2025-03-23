@@ -1,0 +1,41 @@
+/**
+ * Editor area styles
+ * Main content area for viewing and editing files
+ */
+
+/* Editor area */
+.editor-area {
+  /* Grid positioning */
+  grid-area: editor;
+  position: relative;
+  
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface);
+}
+
+.editor-header {
+  /* Display */
+  display: flex;
+  align-items: center;
+  height: 35px;
+  
+  /* Styling */
+  padding: 0 8px;
+  background-color: var(--md-sys-color-surface-container-low);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.breadcrumb-bar {
+  /* Display */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  
+  /* Styling */
+  overflow-x: auto;
+  white-space: nowrap;
+}

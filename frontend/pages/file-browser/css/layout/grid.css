@@ -1,0 +1,20 @@
+/**
+ * Main layout grid
+ * Defines the overall structure of the file browser interface
+ */
+
+.file-browser {
+  /* Positioning */
+  position: relative;
+  margin-top: 40px;
+  height: calc(100vh - 40px);
+  
+  /* Grid layout */
+  display: grid;
+  grid-template-columns: 48px var(--explorer-width) 1fr;
+  grid-template-rows: auto 1fr var(--panel-height);
+  grid-template-areas: 
+    "activity sidebar editor"
+    "activity sidebar editor"
+    "activity sidebar panel";
+}

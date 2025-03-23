@@ -1,0 +1,22 @@
+/* Main stylesheet that imports all theme files */
+
+/* Import Material Design theme files */
+@import './material-theme/common.css';
+@import './material-theme/light.css';
+@import './material-theme/dark.css';
+
+/* Import component styles */
+@import './components/icon-button.css';
+
+/* Import global styles */
+@import './global.css';
+
+/* Set default theme */
+:root {
+  color-scheme: dark light;
+}
+
+/* Default to dark theme */
+body {
+  /* Dark theme is applied by default through class="dark" */
+}

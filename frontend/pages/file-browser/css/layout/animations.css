@@ -1,0 +1,228 @@
+/**
+ * Animation styles
+ * Defines reusable animations for UI elements
+ */
+
+/* Basic fade animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+/* Slide animations */
+.slide-in-right {
+  animation: slideInRight 0.3s ease-in-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-in-out;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.3s ease-in-out;
+}
+
+.slide-in-down {
+  animation: slideInDown 0.3s ease-in-out;
+}
+
+/* Scale animations */
+.scale-in {
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+.scale-out {
+  animation: scaleOut 0.3s ease-in-out;
+}
+
+/* Pulse animation */
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Bounce animation */
+.bounce {
+  animation: bounce 0.5s ease-in-out;
+}
+
+/* Spin animation */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Loading animations */
+.loading-dots:after {
+  content: '.';
+  animation: loadingDots 1.5s infinite;
+}
+
+/* Hover effect animations */
+.hover-float {
+  transition: transform 0.3s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-4px);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 8px var(--md-sys-color-primary);
+  transform: scale(1.02);
+}
+
+/* Click effect */
+.click-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.click-ripple:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.click-ripple:focus:after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Keyframe definitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.8); opacity: 0; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loadingDots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60% { content: '...'; }
+  80%, 100% { content: ''; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0, 0); opacity: 1; }
+  20% { transform: scale(25, 25); opacity: 1; }
+  100% { transform: scale(50, 50); opacity: 0; }
+}
+
+/* Apply animations to specific elements */
+.file-item {
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.file-item:hover {
+  transform: translateX(2px);
+}
+
+.file-item.active {
+  animation: pulse 1s ease-in-out;
+}
+
+.editor-tab {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.editor-tab:hover {
+  transform: translateY(-1px);
+}
+
+.theme-option {
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb-item {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.breadcrumb-item:hover {
+  transform: scale(1.05);
+}
+
+/* Animated elements */
+.icon-btn {
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.05);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+.settings-panel {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

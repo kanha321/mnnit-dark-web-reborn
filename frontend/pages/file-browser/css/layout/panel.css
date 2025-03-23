@@ -1,0 +1,44 @@
+/**
+ * Bottom panel styles
+ * Information panel shown at the bottom of the screen
+ */
+
+.panel {
+  /* Grid positioning */
+  grid-area: panel;
+  
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface-container-low);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.panel-header {
+  /* Display */
+  display: flex;
+  align-items: center;
+  height: 30px;
+  
+  /* Styling */
+  padding: 0 16px;
+  background-color: var(--md-sys-color-surface-container-lowest);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.panel-header-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}

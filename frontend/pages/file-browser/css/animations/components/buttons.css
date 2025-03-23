@@ -1,0 +1,85 @@
+/**
+ * Button animations
+ * Animations for buttons and interactive controls
+ */
+
+/* Icon button animations */
+.icon-btn {
+  transition: background-color 0.2s ease, 
+              transform 0.2s ease, 
+              color 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.05);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* Button ripple effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-ripple:active:after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Material button animations */
+.md-button {
+  transition: background-color 0.3s ease, 
+              transform 0.2s ease, 
+              box-shadow 0.3s ease;
+}
+
+.md-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.md-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Toggle button animations */
+.toggle-btn {
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn::before {
+  content: '';
+  transition: transform 0.3s ease;
+}
+
+.toggle-btn.active::before {
+  transform: translateX(16px);
+}
+
+/* Activity bar button states */
+.activity-bar .icon-btn.active .icon-element {
+  animation: pulseOnce 0.3s ease;
+}
+
+@keyframes pulseOnce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

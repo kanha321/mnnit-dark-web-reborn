@@ -1,0 +1,197 @@
+/* 
+ * Icon Button Component
+ * A reusable button component for displaying icons with consistent styling
+ */
+
+/* Base icon-btn style */
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.1s;
+  position: relative;
+  background: transparent;
+  border: none;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 0;
+}
+
+/* Hover state */
+.icon-btn:hover {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+/* Active state */
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* Selected/active state */
+.icon-btn.active {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-primary);
+}
+
+/* Focus state for accessibility */
+.icon-btn:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+/* Icon element styling */
+.icon-btn > .icon-element {
+  font-family: 'Symbols Nerd Font', monospace !important;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevent icon from capturing clicks */
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1;
+  font-variant: normal;
+  text-transform: none;
+}
+
+/* Size variations */
+.icon-btn.small {
+  width: 28px;
+  height: 28px;
+}
+
+.icon-btn.small > .icon-element {
+  font-size: 14px;
+}
+
+.icon-btn.large {
+  width: 44px;
+  height: 44px;
+}
+
+.icon-btn.large > .icon-element {
+  font-size: 20px;
+}
+
+/* Style variations */
+.icon-btn.filled {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.icon-btn.filled:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.icon-btn.primary {
+  color: var(--md-sys-color-primary);
+}
+
+.icon-btn.primary.filled {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.icon-btn.primary.filled:hover {
+  filter: brightness(1.05);
+}
+
+/* Shape variations */
+.icon-btn.circular {
+  border-radius: 50%;
+}
+
+/* Custom tooltip using data-tooltip attribute */
+.icon-btn[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* For explorer action buttons, position tooltips above */
+.explorer-actions .icon-btn[data-tooltip]:hover::after {
+  bottom: auto;
+  top: -30px;
+}
+
+/* Position variations */
+.icon-btn.fixed-bottom-left {
+  position: absolute;
+  bottom: 16px;
+  left: 6px;
+}
+
+/* Disabled state */
+.icon-btn:disabled,
+.icon-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon-btn:disabled:hover,
+.icon-btn.disabled:hover {
+  background-color: transparent;
+}
+
+/* Context-specific theming */
+/* Explorer action buttons */
+.explorer-actions .icon-btn {
+  background-color: transparent;
+  width: 28px;
+  height: 28px;
+}
+
+.explorer-actions .icon-btn:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.explorer-actions .icon-btn .icon-element {
+  font-size: 14px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.explorer-actions .icon-btn:hover .icon-element {
+  color: var(--md-sys-color-on-surface);
+}
+
+/* Activity bar icons */
+.activity-bar .icon-btn {
+  margin-bottom: 8px;
+}
+
+.activity-bar .icon-btn .icon-element {
+  font-size: 18px;
+}
+
+.activity-bar .icon-btn.active .icon-element {
+  color: var(--md-sys-color-primary);
+}
+
+/* Settings panel close icon */
+.settings-header .icon-btn {
+  background-color: transparent;
+}
+
+.settings-header .icon-btn:hover {
+  background-color: var(--md-sys-color-surface-container);
+}

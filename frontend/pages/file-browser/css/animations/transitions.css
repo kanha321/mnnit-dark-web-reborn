@@ -1,0 +1,61 @@
+/**
+ * Basic transitions
+ * Simple movement and visibility transitions
+ */
+
+/* Fade animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+/* Slide animations */
+.slide-in-right {
+  animation: slideInRight 0.3s ease-in-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-in-out;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.3s ease-in-out;
+}
+
+.slide-in-down {
+  animation: slideInDown 0.3s ease-in-out;
+}
+
+/* Scale animations */
+.scale-in {
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+.scale-out {
+  animation: scaleOut 0.3s ease-in-out;
+}
+
+/* Timing variations */
+.transition-fast {
+  animation-duration: 0.15s;
+}
+
+.transition-slow {
+  animation-duration: 0.5s;
+}
+
+/* Delay classes */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}

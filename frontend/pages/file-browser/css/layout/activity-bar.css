@@ -1,0 +1,118 @@
+/**
+ * Activity bar styles
+ * Leftmost sidebar with navigation icons
+ */
+
+.activity-bar {
+  /* Grid positioning */
+  grid-area: activity;
+  position: relative;
+  z-index: 5;
+  
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface-container-lowest);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* Icon buttons in activity bar */
+.activity-bar .icon-btn {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.activity-bar .icon-btn .icon-element {
+  font-size: 18px;
+}
+
+.activity-bar .icon-btn:hover {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.activity-bar .icon-btn.active {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.activity-bar .icon-btn.active .icon-element {
+  color: var(--md-sys-color-primary);
+}
+
+/* Settings button positioning */
+.activity-bar .icon-btn.fixed-bottom-left {
+  position: absolute;
+  bottom: 16px;
+  left: 6px;
+  margin-bottom: 0;
+}
+
+/* Tooltips for activity bar items */
+.activity-bar .icon-btn[data-tooltip]:hover::after {
+  /* Positioning */
+  left: 46px;
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  /* Styling */
+  border-radius: 4px;
+}
+
+/* Legacy styling for activity-button class for backward compatibility */
+.activity-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  position: relative; /* Ensure position relative for absolute positioning of children */
+}
+
+.activity-button.active {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-primary);
+}
+
+.activity-button:hover {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.activity-button .icon-element {
+  font-family: 'Symbols Nerd Font', monospace !important;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevent icon from capturing clicks */
+}
+
+/* Specific styling for settings button */
+.activity-button#settings-button,
+.icon-btn#settings-button {
+  position: absolute;
+  bottom: 16px;
+  left: 6px;
+  z-index: 101; /* Ensure it's above other elements */
+  transition: background-color 0.2s;
+}
+
+/* Ensure the entire button is clickable */
+.activity-button#settings-button:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

@@ -1,0 +1,33 @@
+/**
+ * Main header styles
+ * Top header bar with application name
+ */
+
+.main-header {
+  /* Positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  
+  /* Display */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface-container-lowest);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  text-align: center;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--md-sys-color-primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}

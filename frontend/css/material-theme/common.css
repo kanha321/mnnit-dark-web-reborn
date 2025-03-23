@@ -1,0 +1,62 @@
+/* Common styles that apply across both light and dark themes */
+
+/* Explicitly force font family on all elements */
+body,
+h1, h2, h3, h4, h5, h6,
+p, span, div,
+button, input, select, textarea,
+a, li, ul, ol {
+    font-family: 'CookieRun', 'Cookie Run', Arial, sans-serif;
+}
+
+/* Class to apply after fonts are confirmed loaded */
+.fonts-applied * {
+    font-family: 'CookieRun', 'Cookie Run', Arial, sans-serif;
+}
+
+/* Exceptions for icon fonts - use Nerd Font */
+.file-icon, 
+[class^="icon-"], 
+[class*=" icon-"],
+.icon-element,
+.theme-icon,
+.tab-icon,
+.tab-close,
+.explorer-action-button .icon-element,
+.activity-button .icon-element,
+.close-button .icon-element {
+    font-family: 'Symbols Nerd Font' !important;
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1;
+    font-variant: normal;
+    text-transform: none;
+}
+
+/* Ensure consistent icon sizing */
+.icon-element {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+}
+
+/* Exceptions for code fonts - use JetBrains Mono */
+pre, code, 
+.file-preview-content pre,
+.code-block,
+.preview-content pre,
+.preview-dialog .preview-content pre,
+[class*="code-"],
+.hover-preview-code,
+.code-preview {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.9em;
+    line-height: 1.5;
+}

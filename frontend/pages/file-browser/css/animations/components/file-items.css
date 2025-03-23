@@ -1,0 +1,89 @@
+/**
+ * File item animations
+ * Specific animations for file and folder items
+ */
+
+/* File item transitions */
+.file-item {
+  transition: background-color 0.15s ease, 
+              transform 0.15s ease, 
+              border-left 0.2s ease;
+}
+
+.file-item:hover {
+  transform: translateX(3px);
+  border-left: 3px solid var(--md-sys-color-primary-container);
+  padding-left: calc(16px - 3px);
+}
+
+.file-item.active {
+  border-left: 3px solid var(--md-sys-color-primary);
+  animation: pulse 1s ease-in-out;
+}
+
+/* File list loading */
+.file-list.loading .file-item {
+  animation: fadeIn 0.3s ease-in-out;
+  animation-fill-mode: both;
+}
+
+/* Staggered file item appearance */
+.file-list .file-item {
+  opacity: 0;
+  animation: slideInRight 0.3s ease-in-out forwards;
+}
+
+/* File icon animations */
+.file-icon {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.file-item:hover .file-icon {
+  transform: scale(1.1);
+}
+
+/* Folder open/close animations */
+.file-item.directory.open .file-icon {
+  animation: folderOpen 0.3s ease forwards;
+}
+
+.file-item.directory.closed .file-icon {
+  animation: folderClose 0.3s ease forwards;
+}
+
+/* Download icon animation */
+.file-download-icon {
+  transform: translateX(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.file-item:hover .file-download-icon {
+  transform: translateX(0);
+  animation: fadeInRight 0.2s ease forwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(5px);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+}
+
+.file-download-icon:active {
+  transform: scale(0.9);
+}
+
+/* Folder open/close keyframes */
+@keyframes folderOpen {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+@keyframes folderClose {
+  from { transform: scale(1.15); }
+  to { transform: scale(1); }
+}

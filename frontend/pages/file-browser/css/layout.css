@@ -1,0 +1,17 @@
+/**
+ * Main layout styles for the file browser
+ * Imports all component-specific layout styles
+ */
+
+/* Import all layout components */
+@import './layout/variables.css';
+@import './layout/main-header.css';
+@import './layout/grid.css';
+@import './layout/activity-bar.css'; 
+@import './layout/file-explorer.css';
+@import './layout/editor-area.css';
+@import './layout/panel.css';
+@import './layout/resize-handles.css';
+@import './layout/settings-panel.css';
+@import './layout/responsive.css';
+@import './animations/base.css';  /* Updated to new animations folder structure */

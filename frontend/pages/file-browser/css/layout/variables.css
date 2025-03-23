@@ -1,0 +1,9 @@
+/**
+ * Global variables for layout dimensions
+ * These variables can be modified by JavaScript for resizable panels
+ */
+
+:root {
+  --explorer-width: 250px;
+  --panel-height: 22%;
+}

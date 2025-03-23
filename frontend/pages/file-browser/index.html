@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNNIT's Dark Web</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/explorer.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/info-panel.css">
+    <link rel="stylesheet" href="css/components.css">
+    <script src="../../js/main.js" type="module" defer></script>
+    <script type="module" src="js/main.js" defer></script>
+</head>
+<body class="dark">
+    <header class="main-header slide-in-down">
+        <h1>MNNIT's Dark Web</h1>
+    </header>
+    
+    <div class="file-browser">
+        <!-- Activity bar (left sidebar) with icon buttons -->
+        <div class="activity-bar slide-in-left">
+            <button class="icon-btn active" data-tooltip="Explorer">
+                <span class="icon-element" data-ui-icon="home"></span>
+            </button>
+            <button class="icon-btn" data-tooltip="Search">
+                <span class="icon-element" data-ui-icon="search"></span>
+            </button>
+            
+            <!-- Settings button fixed at bottom -->
+            <button class="icon-btn fixed-bottom-left" id="settings-button" data-tooltip="Settings">
+                <span class="icon-element" data-ui-icon="settings"></span>
+            </button>
+        </div>
+        
+        <!-- Settings panel (initially hidden) -->
+        <div class="settings-panel" id="settings-panel">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button class="icon-btn small" id="close-settings" data-tooltip="Close">
+                    <span class="icon-element" data-ui-icon="close"></span>
+                </button>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h4>Theme</h4>
+                    <div class="theme-options">
+                        <button class="theme-option" data-theme="light">Light Theme</button>
+                        <button class="theme-option" data-theme="dark">Dark Theme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- File explorer sidebar -->
+        <div class="file-explorer slide-in-left">
+            <div class="explorer-header">
+                <span class="explorer-title">EXPLORER</span>
+                <div class="explorer-actions">
+                    <button id="refresh-files" class="icon-btn small" data-tooltip="Refresh">
+                        <span class="icon-element" data-ui-icon="refresh"></span>
+                    </button>
+                    <button id="path-up" class="icon-btn small" data-tooltip="Go Up">
+                        <span class="icon-element" data-ui-icon="up"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="file-list-container">
+                <div id="file-list" class="file-list">
+                    <!-- File items will be inserted here by JavaScript -->
+                    <div class="loading-indicator">Loading files...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resize handle for file explorer width -->
+        <div class="resize-handle vertical" id="explorer-resize-handle" data-resize="explorer-width"></div>
+        
+        <!-- Main editor area -->
+        <div class="editor-area fade-in">
+            <!-- Editor header with breadcrumbs -->
+            <div class="editor-header">
+                <div class="breadcrumb-bar" id="breadcrumbs">
+                    <!-- Breadcrumbs will be inserted here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Editor tabs -->
+            <div id="editor-tabs" class="editor-tabs">
+                <!-- Editor tabs will be inserted here by JavaScript -->
+            </div>
+            
+            <!-- Editor content -->
+            <div id="editor-content" class="editor-content">
+                <!-- Editor content will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Resize handle for panel height -->
+        <div class="resize-handle horizontal" id="panel-resize-handle" data-resize="panel-height"></div>
+        
+        <!-- Bottom panel -->
+        <div class="panel slide-in-up">
+            <div class="panel-header">
+                <span class="panel-header-title">Details</span>
+                <div class="panel-tabs">
+                    <div class="panel-tab active">File Info</div>
+                </div>
+            </div>
+            <div class="panel-content" id="info-panel-content">
+                <!-- File info will be inserted here by JavaScript -->
+                <p>No file selected</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
