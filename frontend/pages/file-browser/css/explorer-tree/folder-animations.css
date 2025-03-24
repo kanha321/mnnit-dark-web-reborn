@@ -1,0 +1,23 @@
+/**
+ * Folder animation styles
+ * Controls all animations related to folder expansion/collapse
+ */
+
+/* Animation for vertical line when expanding */
+.folder-children.expanding::before {
+  width: 2px;
+  background-color: var(--md-sys-color-primary);
+  opacity: 1;
+  animation: singleLineGrow 0.8s ease-out forwards;
+}
+
+/* Sliding animations for folder children */
+.folder-children.sliding-down {
+  animation: slideDown 0.3s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  overflow: hidden;
+}
+
+.folder-children.sliding-up {
+  animation: slideUp 0.3s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+  overflow: hidden;
+}

@@ -1,0 +1,91 @@
+/**
+ * Tree animations - Clean implementation
+ * All animations specific to tree view
+ */
+
+/* Base animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Line grow animation */
+@keyframes lineGrow {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* Folder expand/collapse animations */
+.folder-children.sliding-down {
+  animation: slideDown 0.25s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  overflow: hidden;
+}
+
+.folder-children.sliding-up {
+  animation: slideUp 0.25s cubic-bezier(0.33, 0, 0.67, 0) forwards;
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+  }
+}
+
+/* Staggered animations for children */
+.folder-children .file-tree-item-container {
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+}
+
+.folder-children.expanding .file-tree-item-container {
+  animation: itemFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes itemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Simple staggered delays - for first 5 items */
+.folder-children .file-tree-item-container:nth-child(1) { animation-delay: 0.00s; }
+.folder-children .file-tree-item-container:nth-child(2) { animation-delay: 0.03s; }
+.folder-children .file-tree-item-container:nth-child(3) { animation-delay: 0.06s; }
+.folder-children .file-tree-item-container:nth-child(4) { animation-delay: 0.09s; }
+.folder-children .file-tree-item-container:nth-child(n+5) { animation-delay: 0.12s; }

@@ -174,9 +174,87 @@
 }
 
 .empty-folder {
-  padding: 16px;
-  text-align: center;
+  padding: 8px 16px;
   color: var(--md-sys-color-on-surface-variant);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-style: italic;
+}
+
+/* Tree view styles */
+.file-tree-item-container {
+  position: relative;
+}
+
+/* Tree item styles */
+.file-item.tree-item {
+  padding-left: 8px; /* Base padding */
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Tree indentation for levels */
+.tree-indent {
+  display: inline-block;
+  width: 16px;
+  height: 22px;
+  position: relative;
+}
+
+/* Vertical line for indentation */
+.tree-indent::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background-color: var(--md-sys-color-outline-variant);
+  opacity: 0.5;
+}
+
+/* File space after indentation */
+.file-indent {
+  width: 16px;
+  display: inline-block;
+}
+
+/* Folder toggle button (arrow) */
+.folder-toggle {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-right: 4px;
+  user-select: none;
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.folder-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+/* Children container */
+.folder-children {
+  padding-left: 16px;
+  border-left: 1px dashed var(--md-sys-color-outline-variant);
+  margin-left: 10px;
+}
+
+/* Loading indicator for folder loading */
+.loading-indicator-small {
+  padding: 4px 16px;
+  font-size: 0.8rem;
+  color: var(--md-sys-color-on-surface-variant);
+  opacity: 0.7;
+}
+
+.error-message-small {
+  padding: 4px 16px;
+  font-size: 0.8rem;
+  color: var(--md-sys-color-error);
 }

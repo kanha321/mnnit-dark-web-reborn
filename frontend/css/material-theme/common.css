@@ -60,3 +60,14 @@ pre, code,
     font-size: 0.9em;
     line-height: 1.5;
 }
+
+/* Add RGB versions of colors for animations */
+:root {
+  --md-sys-color-outline-rgb: 133, 115, 108; /* Light theme default */
+  --md-sys-color-primary-rgb: 141, 78, 44; /* Light theme default */
+}
+
+.dark {
+  --md-sys-color-outline-rgb: 160, 141, 133; /* Dark theme value */
+  --md-sys-color-primary-rgb: 255, 182, 146; /* Dark theme value */
+}

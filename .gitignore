@@ -1,0 +1,69 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+.npm
+
+# Build artifacts
+dist/
+build/
+public/build/
+.cache/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+*.launch
+*.sublime-workspace
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backend specific
+/backend/files/*
+!/backend/files/.gitkeep
+/backend/logs/
+
+# Frontend specific
+/frontend/dist/
+/frontend/.cache/
+
+# Testing
+/coverage/
+/.nyc_output
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~

@@ -1,0 +1,9 @@
+/**
+ * Tree-view styles for file explorer - Clean implementation
+ * Imports all modular components from explorer-tree folder
+ */
+
+/* Import core files only - better organization */
+@import './explorer-tree/base.css';
+@import './explorer-tree/tree-items.css';
+@import './explorer-tree/tree-animations.css';

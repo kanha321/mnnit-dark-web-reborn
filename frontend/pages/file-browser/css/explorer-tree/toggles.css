@@ -1,0 +1,31 @@
+/**
+ * Toggle button styles for folders
+ */
+
+/* Toggle button for folders - more compact */
+.folder-toggle {
+  display: inline-flex;
+  width: 12px; /* Reduced from 14px */
+  height: 12px; /* Reduced from 14px */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-right: 1px; /* Reduced from 2px */
+  user-select: none;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background-color: var(--md-sys-color-surface);
+  font-size: 8px; /* Reduced from 10px */
+}
+
+.folder-toggle:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-primary);
+}
+
+.folder-toggle.expanded {
+  transform: rotate(90deg);
+}

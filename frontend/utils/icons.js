@@ -106,6 +106,7 @@ const UI_ICONS = {
   refresh: '\uf021',        // nf-fa-refresh
   upload: '\uf093',         // nf-fa-upload
   download: '\uf019',       // nf-fa-download
+  copy: '\uf0c5',           // nf-fa-copy
   newFile: '\uf15b',        // nf-fa-file_o
   newFolder: '\uf07b',      // nf-fa-folder
   delete: '\uf1f8',         // nf-fa-trash

@@ -3,7 +3,7 @@
  * Shows file content in a preview tab instantly when hovering over files
  */
 
-import { getFileContent, getFileDetails } from '../../../utils/mock-api.js';
+import { getFileContent, getFileDetails } from '../../../utils/api.js'; // Changed from mock-api to real api
 import { state } from './main.js';
 import { updateEditorTabs, updateEditorContent, generateMockContent } from './editor.js';
 import { updateInfoPanel } from './info-panel.js';

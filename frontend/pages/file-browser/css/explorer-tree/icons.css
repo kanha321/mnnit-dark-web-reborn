@@ -1,0 +1,91 @@
+/**
+ * Icons and action buttons for tree view
+ */
+
+/* Icon animations */
+.file-item.tree-item .file-icon {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.file-item.tree-item:hover .file-icon {
+  color: var(--md-sys-color-primary);
+}
+
+/* File action buttons container */
+.file-action-buttons {
+  display: flex;
+  margin-left: auto;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.file-item:hover .file-action-buttons {
+  opacity: 1;
+}
+
+/* File action icons - Download and Copy */
+.file-download-icon,
+.file-copy-icon {
+  font-family: 'Symbols Nerd Font', monospace !important;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--md-sys-color-primary);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+}
+
+.file-copy-icon {
+  margin-right: 3px;
+  margin-left: 3px;
+  color: var(--md-sys-color-secondary);
+}
+
+.file-item:hover .file-download-icon,
+.file-item:hover .file-copy-icon {
+  opacity: 0.8;
+}
+
+.file-download-icon:hover,
+.file-copy-icon:hover {
+  opacity: 1;
+  background-color: var(--md-sys-color-surface-container-high);
+  transform: scale(1.1);
+}
+
+/* Tooltips for action icons */
+.file-copy-icon:hover::after,
+.file-download-icon:hover::after {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 100;
+}
+
+.file-copy-icon:hover::after {
+  content: "Copy";
+}
+
+.file-download-icon:hover::after {
+  content: "Download";
+}
+
+/* Ensure file name doesn't overlap with action icons */
+.file-item:hover .file-name {
+  max-width: calc(100% - 70px);
+}

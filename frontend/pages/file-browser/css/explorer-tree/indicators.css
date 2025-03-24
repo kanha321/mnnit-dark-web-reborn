@@ -1,0 +1,40 @@
+/**
+ * Loading and error indicators for the tree view
+ */
+
+/* Loading indicators */
+.loading-indicator-small {
+  padding: 4px 16px;
+  font-size: 0.8rem;
+  color: var(--md-sys-color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-indicator-small::before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top-color: var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: m3Spin 1s linear infinite;
+}
+
+.error-message-small {
+  padding: 4px 16px;
+  font-size: 0.8rem;
+  color: var(--md-sys-color-error);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.error-message-small::before {
+  content: '⚠';
+  font-size: 14px;
+  color: var(--md-sys-color-error);
+  margin-right: 4px;
+}

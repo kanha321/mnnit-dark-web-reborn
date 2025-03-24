@@ -14,4 +14,5 @@
 @import './layout/resize-handles.css';
 @import './layout/settings-panel.css';
 @import './layout/responsive.css';
-@import './animations/base.css';  /* Updated to new animations folder structure */
+@import './animations/base.css';
+@import './explorer-tree.css'; /* Tree view specific styles */

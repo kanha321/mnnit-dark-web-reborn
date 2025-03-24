@@ -1,0 +1,8 @@
+/**
+ * Folder styles for tree view
+ * Imports all folder-related styles
+ */
+
+@import './folder-structure.css';
+@import './folder-animations.css';
+@import './folder-children.css';

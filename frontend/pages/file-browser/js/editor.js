@@ -2,7 +2,7 @@
  * Editor component functionality
  */
 
-import { getFileDetails } from '../../../utils/mock-api.js';
+import { getFileDetails } from '../../../utils/api.js'; // Changed from mock-api to real api
 import { createElement, showToast } from '../../../utils/dom.js';
 import { state } from './main.js';
 import { updateInfoPanel } from './info-panel.js';

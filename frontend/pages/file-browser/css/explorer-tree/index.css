@@ -1,0 +1,11 @@
+/**
+ * Main index file for explorer tree components
+ * Imports all tree-specific CSS modules
+ */
+
+@import './base.css';
+@import './toggles.css';
+@import './folders.css'; /* This now imports all folder-related CSS */
+@import './icons.css';
+@import './indicators.css';
+@import './animations.css';

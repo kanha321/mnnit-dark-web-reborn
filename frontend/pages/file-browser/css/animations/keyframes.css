@@ -16,34 +16,34 @@
 
 /* Slide keyframes */
 @keyframes slideInRight {
-  from { transform: translateX(30px); opacity: 0; }
+  from { transform: translateX(-20px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes slideInLeft {
-  from { transform: translateX(-30px); opacity: 0; }
+  from { transform: translateX(20px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes slideInUp {
-  from { transform: translateY(30px); opacity: 0; }
+  from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes slideInDown {
-  from { transform: translateY(-30px); opacity: 0; }
+  from { transform: translateY(-20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 /* Scale keyframes */
 @keyframes scaleIn {
-  from { transform: scale(0.8); opacity: 0; }
+  from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
 @keyframes scaleOut {
   from { transform: scale(1); opacity: 1; }
-  to { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(0.9); opacity: 0; }
 }
 
 /* Effect keyframes */
@@ -54,13 +54,12 @@
 }
 
 @keyframes bounce {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
@@ -108,4 +107,59 @@
   0% { transform: scale(0); opacity: 1; }
   50% { transform: scale(1); opacity: 0.5; }
   100% { transform: scale(0); opacity: 1; }
+}
+
+/* File explorer specific animations */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+    max-height: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 2000px;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+    max-height: 0;
+  }
+}
+
+/* Staggered child item appearance */
+@keyframes fadeSlideInItem {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Lighting effects */
+@keyframes solidLightUp {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 100%;
+  }
 }

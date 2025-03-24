@@ -1,0 +1,67 @@
+/**
+ * Base styles for tree view - Clean implementation
+ */
+
+/* Base container */
+.file-tree-item-container {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Tree item core styles */
+.file-item.tree-item {
+  display: flex;
+  align-items: center;
+  padding: 1px 6px;
+  min-height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+/* Item states */
+.file-item.tree-item:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.file-item.tree-item:active {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.file-item.tree-item.active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* Indentation - ultra minimal */
+.tree-indent {
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  position: relative;
+}
+
+.file-indent {
+  width: 2px;
+  display: inline-block;
+}
+
+/* File name styling */
+.file-item.tree-item .file-name {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Empty folder state */
+.empty-folder {
+  padding: 6px 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.7;
+}

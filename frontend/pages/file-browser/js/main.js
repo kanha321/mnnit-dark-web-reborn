@@ -2,7 +2,7 @@
  * Main entry point for file browser functionality
  */
 
-import { initExplorer } from './explorer.js';
+import { initExplorer, loadFilesTree } from './explorer/index.js';
 import { initEditor } from './editor.js';
 import { initInfoPanel } from './info-panel.js';
 import { initSettings } from './settings.js';
@@ -17,23 +17,22 @@ export const state = {
   currentFiles: [],
   openFiles: [],
   activeFile: null
-  // Removed hoveredFile and previewMode
 };
 
 // Initialize all browser components
 function initFileBrowser() {
   // Initialize components
-  initExplorer();
+  initExplorer(); // This initializes the tree view implementation
   initEditor();
   initInfoPanel();
   initSettings();
   initResize();
-  initHoverPreview(); // Add hover preview initialization
+  initHoverPreview();
   
   // Initialize Nerd Font icons
   initializeIcons();
   
-  console.log('File browser initialized');
+  console.log('File browser initialized with tree view');
 }
 
 // Initialize when DOM is loaded

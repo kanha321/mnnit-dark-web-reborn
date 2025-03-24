@@ -1,0 +1,27 @@
+/**
+ * Folder structure styles
+ * Basic container and layout for folders
+ */
+
+/* Children container - with ultra-minimal indentation */
+.folder-children {
+  padding-left: 2px; /* Reduced from 4px */
+  position: relative;
+  overflow: hidden;
+  margin-left: 1px; /* Reduced from 3px */
+  border-left: none;
+  will-change: height, opacity, transform;
+}
+
+/* Single vertical line - adjusted position */
+.folder-children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background-color: var(--md-sys-color-outline);
+  opacity: 0.3;
+  z-index: 1;
+}
