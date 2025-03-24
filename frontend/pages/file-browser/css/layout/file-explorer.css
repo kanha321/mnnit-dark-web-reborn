@@ -1,44 +1,35 @@
 /**
- * File explorer layout
- * Controls the sidebar file explorer panel
+ * File explorer sidebar styles
+ * Left panel that shows file and directory structure
  */
 
-/* File explorer container */
+/* File explorer sidebar */
 .file-explorer {
   /* Grid positioning */
   grid-area: sidebar;
   
-  /* Layout */
+  /* Display */
   display: flex;
   flex-direction: column;
   
   /* Styling */
-  background-color: var(--md-sys-color-surface-container-lowest);
+  background-color: var(--md-sys-color-surface-container-low);
   border-right: 1px solid var(--md-sys-color-outline-variant);
-  
-  /* Prevent overall scrolling, we'll scroll the content instead */
-  overflow: hidden;
-  
-  /* Ensure it takes full height */
-  height: 100%;
 }
 
-/* Header stays fixed at top */
 .explorer-header {
-  /* Fixed height and position */
-  height: 40px;
-  min-height: 40px; /* Ensure consistent height */
-  padding: 0 8px;
-  
-  /* Layout */
+  /* Display */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 35px;
   
   /* Styling */
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 0.9rem;
   background-color: var(--md-sys-color-surface-container-low);
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
-  z-index: 10; /* Stay above content when scrolling */
 }
 
 .explorer-title {
@@ -48,23 +39,7 @@
   letter-spacing: 0.05em;
 }
 
-/* Container for scrollable file list */
 .file-list-container {
-  /* Take remaining space */
   flex: 1;
-  
-  /* Enable scrolling */
   overflow-y: auto;
-  overflow-x: hidden;
-  
-  /* Smoother scrolling */
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Actual file list */
-.file-list {
-  display: flex;
-  flex-direction: column;
-  padding: 4px 0;
 }
