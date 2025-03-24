@@ -1,0 +1,17 @@
+/**
+ * Animation base file
+ * Imports all animation modules for centralized management
+ */
+
+/* Core animations */
+@import './transitions.css';
+@import './effects.css';
+@import './interactions.css';
+@import './loading.css';
+@import './keyframes.css';
+
+/* Component-specific animations */
+@import './components/file-items.css';
+@import './components/panels.css';
+@import './components/buttons.css';
+@import './components/tabs.css';

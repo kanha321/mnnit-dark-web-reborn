@@ -1,0 +1,119 @@
+/**
+ * Material 3 themed scrollbars with enhanced fade animations
+ */
+
+/* Default scrollbar styling for WebKit/Blink browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--md-sys-color-outline);
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.6s ease, background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-sys-color-outline);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox specific scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-sys-color-outline) transparent;
+}
+
+/* Enhanced scrollbar states and animations */
+/* Initial hidden state */
+.scrollbar-hidden::-webkit-scrollbar-thumb {
+  opacity: 0;
+  visibility: hidden; /* Hide completely */
+}
+
+/* Active scrolling state - show immediately */
+.scrolling::-webkit-scrollbar-thumb {
+  opacity: 0.7;
+  visibility: visible;
+}
+
+/* Fade-out animation state */
+.scrollbar-fading::-webkit-scrollbar-thumb {
+  opacity: 0;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Hover should always show scrollbar regardless of fade state */
+:hover::-webkit-scrollbar-thumb {
+  opacity: 0.7;
+  visibility: visible;
+  transition: opacity 0.2s ease;
+}
+
+/* On active hover, make scrollbar more prominent */
+:hover::-webkit-scrollbar-thumb:hover {
+  opacity: 0.9;
+}
+
+/* Thin scrollbars for specific containers */
+.file-list-container::-webkit-scrollbar,
+.editor-content::-webkit-scrollbar,
+.panel-content::-webkit-scrollbar,
+.code-preview::-webkit-scrollbar,
+.breadcrumb-bar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Dark theme scrollbar adjustments */
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar behavior - limited control but do our best */
+@supports (scrollbar-width: thin) {
+  .file-list-container,
+  .editor-content,
+  .panel-content,
+  .code-preview {
+    scrollbar-width: thin;
+    transition: scrollbar-color 0.6s ease;
+    scrollbar-color: transparent transparent;
+  }
+
+  .file-list-container:hover,
+  .editor-content:hover,
+  .panel-content:hover,
+  .code-preview:hover,
+  .scrolling {
+    transition: scrollbar-color 0.2s ease;
+    scrollbar-color: var(--md-sys-color-outline) transparent;
+  }
+  
+  .scrollbar-fading {
+    transition: scrollbar-color 0.6s ease;
+    scrollbar-color: transparent transparent;
+  }
+
+  .dark .file-list-container:hover,
+  .dark .editor-content:hover,
+  .dark .panel-content:hover,
+  .dark .code-preview:hover,
+  .dark .scrolling {
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+}

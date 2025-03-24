@@ -2,20 +2,15 @@
  * Streamlined resize functionality for panels
  */
 
-// Configuration
+// Configuration - removed panel-height
 const PANEL_CONFIG = {
   'explorer-width': { 
     default: 250,
     min: 150, 
     max: 500,
     unit: 'px'
-  },
-  'panel-height': { 
-    default: 22,
-    min: 10, 
-    max: 50,
-    unit: '%'
   }
+  // Removed panel-height configuration
 };
 
 // Initialize resize functionality
@@ -29,6 +24,9 @@ export function initResize() {
     handle.style.cursor = isVertical ? 'ew-resize' : 'ns-resize';
     handle.addEventListener('mousedown', handleResizeStart);
   });
+  
+  // Initialize responsive layout
+  initResponsiveLayout();
 }
 
 // Load sizes from localStorage
@@ -78,11 +76,8 @@ function handleResizeStart(event) {
     if (property === 'explorer-width') {
       const delta = e.clientX - startPos.x;
       setSize(property, startSize + delta);
-    } else if (property === 'panel-height') {
-      const delta = startPos.y - e.clientY;
-      const deltaPercent = (delta / window.innerHeight) * 100;
-      setSize(property, startSize + deltaPercent);
     }
+    // Removed panel-height resizing handler
   }
   
   function handleUp() {
@@ -109,4 +104,63 @@ function handleResizeStart(event) {
   
   document.addEventListener('mousemove', handleMove);
   document.addEventListener('mouseup', handleUp);
+}
+
+// Add responsiveness toggle for mobile
+export function initResponsiveLayout() {
+  // Create toggle button for mobile
+  const activityBar = document.querySelector('.activity-bar');
+  if (activityBar && !document.getElementById('sidebar-toggle')) {
+    const sidebarToggle = document.createElement('button');
+    sidebarToggle.id = 'sidebar-toggle';
+    sidebarToggle.className = 'icon-btn';
+    sidebarToggle.setAttribute('data-tooltip', 'Toggle Sidebar');
+    sidebarToggle.innerHTML = '<span class="icon-element" data-ui-icon="menu"></span>';
+    
+    // Insert at the top
+    if (activityBar.firstChild) {
+      activityBar.insertBefore(sidebarToggle, activityBar.firstChild);
+    } else {
+      activityBar.appendChild(sidebarToggle);
+    }
+    
+    // Add click handler
+    sidebarToggle.addEventListener('click', toggleSidebar);
+  }
+  
+  // Handle initial state based on screen size
+  handleResponsiveLayout();
+  
+  // Listen for window resize
+  window.addEventListener('resize', handleResponsiveLayout);
+}
+
+// Toggle sidebar visibility on mobile
+function toggleSidebar() {
+  const sidebar = document.querySelector('.file-explorer');
+  if (sidebar) {
+    sidebar.classList.toggle('visible');
+  }
+}
+
+// Handle responsive layout changes
+function handleResponsiveLayout() {
+  const sidebar = document.querySelector('.file-explorer');
+  const isMobile = window.innerWidth <= 768;
+  
+  if (sidebar) {
+    // On mobile, hide sidebar by default
+    if (isMobile) {
+      sidebar.classList.remove('visible');
+    } else {
+      // On desktop, always show sidebar
+      sidebar.style.display = 'flex';
+    }
+  }
+  
+  // Show/hide sidebar toggle button
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  if (sidebarToggle) {
+    sidebarToggle.style.display = isMobile ? 'flex' : 'none';
+  }
 }

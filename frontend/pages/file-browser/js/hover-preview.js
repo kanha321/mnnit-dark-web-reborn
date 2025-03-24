@@ -1,100 +1,158 @@
 /**
- * Enhanced hover preview functionality
- * Shows file content in a preview tab instantly when hovering over files
+ * Enhanced hover preview functionality with cache support
  */
 
-import { getFileContent, getFileDetails } from '../../../utils/api.js'; // Changed from mock-api to real api
+import { getFileDetails } from '../../../utils/api.js'; 
 import { state } from './main.js';
 import { updateEditorTabs, updateEditorContent, generateMockContent } from './editor.js';
-import { updateInfoPanel } from './info-panel.js';
+// Removed import for info-panel.js
+import { getCachedContent, getContentWithCache, prioritizeCachingForDirectory } from '../../../utils/cache-manager.js';
+import { isTextFile, getSyntaxLanguage } from '../../../utils/file-utils.js';
 
 // Preview state
 let previewTimer;
 let previewActive = false;
 let previousActiveFile = null;
 let lastPreviewFilePath = null;
+let previewDebounceTimer = null;
 
 // Initialize hover preview
 export function initHoverPreview() {
   // Nothing special to initialize
 }
 
-// Handle file hover start - now instant
+// Handle file hover start with cache support for instant previews
 export const handleFileHover = async (file) => {
-  if (!file || file.isDirectory) return;
-  
-  // Clear any existing preview timer
+  // Clear any existing timers
   clearTimeout(previewTimer);
+  clearTimeout(previewDebounceTimer);
   
-  // Skip if already previewing this file
-  if (lastPreviewFilePath === file.path) return;
-  lastPreviewFilePath = file.path;
+  if (!file) return;
   
-  try {
-    // Save current active file to restore later
-    if (state.activeFile && !previewActive) {
-      previousActiveFile = state.activeFile;
-    }
-    
-    // Get file details
-    let details;
-    try {
-      details = await getFileDetails(file.path);
-    } catch (error) {
-      console.error('Error getting file details:', error);
-      return;
-    }
-    
-    // Check if the file is already open in a regular tab
-    const existingFileIndex = state.openFiles.findIndex(f => f.path === file.path && !f.isPreview);
-    
-    // If file is already open in a regular tab, don't create a preview tab
-    if (existingFileIndex !== -1) {
-      // Just activate the existing tab
-      state.activeFile = state.openFiles[existingFileIndex];
-      updateEditorTabs();
-      updateEditorContent(state.activeFile);
-      updateInfoPanel(state.activeFile);
-      return;
-    }
-    
-    // Create a special preview file object
-    const previewFile = {
-      ...file,
-      details,
-      isPreview: true,
-      name: `Preview: ${file.name}`
-    };
-    
-    // Set as active file
-    state.activeFile = previewFile;
-    previewActive = true;
-    
-    // Find if we already have a preview tab
-    const existingPreviewIndex = state.openFiles.findIndex(f => f.isPreview);
-    
-    if (existingPreviewIndex !== -1) {
-      // Update existing preview tab
-      state.openFiles[existingPreviewIndex] = previewFile;
-    } else {
-      // Add preview tab
-      state.openFiles.push(previewFile);
-    }
-    
-    // Update UI
-    updateEditorTabs();
-    updateEditorContent(previewFile);
-    updateInfoPanel(previewFile);
-    
-  } catch (error) {
-    console.error('Preview error:', error);
+  // If directory, prioritize caching its contents for better UX
+  if (file.isDirectory) {
+    prioritizeCachingForDirectory(file.path);
+    return;
   }
+  
+  // Skip if not a text file that we can preview
+  if (!isTextFile(file.name)) return;
+  
+  // Use debounce to avoid constantly creating preview tabs when moving mouse quickly
+  previewDebounceTimer = setTimeout(async () => {
+    // Skip if already previewing this file
+    if (lastPreviewFilePath === file.path) return;
+    lastPreviewFilePath = file.path;
+    
+    try {
+      // Save current active file to restore later
+      if (state.activeFile && !previewActive) {
+        previousActiveFile = state.activeFile;
+      }
+      
+      // Get file details
+      let details;
+      try {
+        details = await getFileDetails(file.path);
+      } catch (error) {
+        console.error('Error getting file details:', error);
+        return;
+      }
+      
+      // Check if the file is already open in a regular tab
+      const existingFileIndex = state.openFiles.findIndex(f => f.path === file.path && !f.isPreview);
+      
+      // If file is already open in a regular tab, just activate it
+      if (existingFileIndex !== -1) {
+        state.activeFile = state.openFiles[existingFileIndex];
+        updateEditorTabs();
+        updateEditorContent(state.activeFile);
+        // Removed updateInfoPanel call
+        return;
+      }
+      
+      // Create a special preview file object
+      const previewFile = {
+        ...file,
+        details,
+        isPreview: true,
+        name: `Preview: ${file.name}`,
+        isLoading: true
+      };
+      
+      // Check if content is cached
+      const cachedContent = getCachedContent(file.path);
+      if (cachedContent) {
+        previewFile.content = cachedContent;
+        previewFile.isLoading = false;
+      }
+      
+      // Set as active file
+      state.activeFile = previewFile;
+      previewActive = true;
+      
+      // Find if we already have a preview tab
+      const existingPreviewIndex = state.openFiles.findIndex(f => f.isPreview);
+      
+      if (existingPreviewIndex !== -1) {
+        // Update existing preview tab
+        state.openFiles[existingPreviewIndex] = previewFile;
+      } else {
+        // Add preview tab
+        state.openFiles.push(previewFile);
+      }
+      
+      // Update UI with cached content if available
+      updateEditorTabs();
+      updateEditorContent(previewFile);
+      // Removed updateInfoPanel call
+      
+      // If content not cached, fetch it in background
+      if (previewFile.isLoading) {
+        try {
+          const content = await getContentWithCache(file.path);
+          
+          // Only update if we're still hovering over this file
+          if (lastPreviewFilePath === file.path) {
+            // Find the preview tab again
+            const currentPreviewIndex = state.openFiles.findIndex(f => f.isPreview);
+            if (currentPreviewIndex !== -1) {
+              // Update the content
+              state.openFiles[currentPreviewIndex].content = content;
+              state.openFiles[currentPreviewIndex].isLoading = false;
+              
+              // Update UI if this is still the active file
+              if (state.activeFile && state.activeFile.path === file.path) {
+                updateEditorContent(state.openFiles[currentPreviewIndex]);
+              }
+            }
+          }
+        } catch (error) {
+          console.error('Error loading preview content:', error);
+          
+          // Update preview with error state
+          const currentPreviewIndex = state.openFiles.findIndex(f => f.isPreview);
+          if (currentPreviewIndex !== -1 && lastPreviewFilePath === file.path) {
+            state.openFiles[currentPreviewIndex].isLoading = false;
+            state.openFiles[currentPreviewIndex].loadError = error.message;
+            
+            if (state.activeFile && state.activeFile.path === file.path) {
+              updateEditorContent(state.openFiles[currentPreviewIndex]);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Preview error:', error);
+    }
+  }, 100); // Short debounce to avoid preview creation when just moving over files
 };
 
 // Handle file hover end - use a very short delay to avoid flickering
 export const handleFileHoverEnd = () => {
   // Clear any existing preview timer
   clearTimeout(previewTimer);
+  clearTimeout(previewDebounceTimer);
   
   // Set a very short delay to prevent flicker when moving between files
   previewTimer = setTimeout(() => {
@@ -123,7 +181,7 @@ export const handleFileHoverEnd = () => {
     
     if (state.activeFile) {
       updateEditorContent(state.activeFile);
-      updateInfoPanel(state.activeFile);
+      // Removed updateInfoPanel call
     } else {
       // No files open, reset editor
       const editorContent = document.getElementById('editor-content');
@@ -135,7 +193,7 @@ export const handleFileHoverEnd = () => {
           </div>
         `;
       }
-      updateInfoPanel(null);
+      // Removed updateInfoPanel call
     }
     
     previewActive = false;

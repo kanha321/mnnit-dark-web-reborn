@@ -1,0 +1,241 @@
+/**
+ * Tree view core styles - Consolidated implementation
+ */
+
+/* File tree container */
+.file-tree-item-container {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Tree item core styling */
+.file-item.tree-item {
+  display: flex;
+  align-items: center;
+  padding: 1px 6px;
+  min-height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.file-item.tree-item:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.file-item.tree-item:active {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.file-item.tree-item.active {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* Ultra-minimal indentation */
+.tree-indent {
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  position: relative;
+}
+
+.file-indent {
+  width: 2px;
+  display: inline-block;
+}
+
+/* File name */
+.file-item.tree-item .file-name {
+  font-size: 0.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Folder toggle button */
+.folder-toggle {
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-right: 2px;
+  font-size: 8px;
+  border-radius: 50%;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.folder-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.folder-toggle:hover {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-primary);
+}
+
+/* Icons */
+.file-icon {
+  font-family: 'Symbols Nerd Font', monospace !important;
+  width: 16px;
+  text-align: center;
+  margin-right: 4px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.file-item.directory .file-icon {
+  color: var(--md-sys-color-primary);
+}
+
+.file-item.tree-item:hover .file-icon {
+  color: var(--md-sys-color-primary);
+}
+
+/* Folder structure */
+.folder-children {
+  padding-left: 2px;
+  position: relative;
+  overflow: hidden;
+  will-change: height, opacity, transform;
+}
+
+/* Connection line */
+.folder-children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background-color: var(--md-sys-color-outline);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.folder-children.expanding::before {
+  width: 2px;
+  background-color: var(--md-sys-color-primary);
+  opacity: 0.8;
+  animation: lineGrow 0.6s ease-out forwards;
+}
+
+/* Action buttons */
+.file-action-buttons {
+  display: flex;
+  margin-left: auto;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.file-item:hover .file-action-buttons {
+  opacity: 1;
+}
+
+/* Action icons */
+.file-download-icon,
+.file-copy-icon {
+  font-family: 'Symbols Nerd Font', monospace !important;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.file-download-icon {
+  color: var(--md-sys-color-primary);
+}
+
+.file-copy-icon {
+  color: var(--md-sys-color-secondary);
+}
+
+.file-download-icon:hover,
+.file-copy-icon:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+  transform: scale(1.1);
+}
+
+/* Tooltips */
+.file-action-buttons [class$="-icon"]:hover::after {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 100;
+}
+
+.file-copy-icon:hover::after {
+  content: "Copy";
+}
+
+.file-download-icon:hover::after {
+  content: "Download";
+}
+
+/* Make sure file name doesn't overlap action buttons */
+.file-item:hover .file-name {
+  max-width: calc(100% - 70px);
+}
+
+/* Loading indicators */
+.loading-indicator-small {
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  color: var(--md-sys-color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.loading-indicator-small::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top-color: var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Error messages */
+.error-message-small {
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  color: var(--md-sys-color-error);
+  display: flex;
+  align-items: center;
+}
+
+.error-message-small::before {
+  content: '⚠';
+  font-size: 12px;
+  color: var(--md-sys-color-error);
+  margin-right: 4px;
+}
+
+/* Empty folder state */
+.empty-folder {
+  padding: 6px 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.7;
+}

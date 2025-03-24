@@ -1,0 +1,75 @@
+/**
+ * Loading animations
+ * Animations for loading states and progress indicators
+ */
+
+/* Spinner animation */
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid transparent;
+  border-top-color: var(--md-sys-color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-large {
+  width: 50px;
+  height: 50px;
+  border-width: 4px;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+/* Dots loading animation */
+.loading-dots:after {
+  content: '.';
+  animation: loadingDots 1.5s infinite;
+}
+
+/* Progress bar */
+.progress-bar {
+  height: 4px;
+  width: 100%;
+  background-color: var(--md-sys-color-surface-container);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar:before {
+  content: '';
+  position: absolute;
+  left: -50%;
+  height: 100%;
+  width: 50%;
+  background-color: var(--md-sys-color-primary);
+  animation: progressBar 1.5s linear infinite;
+}
+
+/* Pulse loading */
+.pulse-loader {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--md-sys-color-primary);
+  animation: pulseLoader 1.5s ease-in-out infinite;
+}
+
+/* Element state animations */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Loading container */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}

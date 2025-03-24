@@ -1,0 +1,51 @@
+/**
+ * Animation effects
+ * Special visual effects for UI elements
+ */
+
+/* Pulse animation */
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Bounce animation */
+.bounce {
+  animation: bounce 0.5s ease-in-out;
+}
+
+/* Spin animation */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Shake animation */
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Flash animation */
+.flash {
+  animation: flash 0.8s ease;
+}
+
+/* Heartbeat animation */
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Variation classes */
+.effect-once {
+  animation-iteration-count: 1;
+}
+
+.effect-twice {
+  animation-iteration-count: 2;
+}
+
+.effect-slow {
+  animation-duration: 2s;
+}
+
+.effect-fast {
+  animation-duration: 0.5s;
+}

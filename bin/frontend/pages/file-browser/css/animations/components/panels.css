@@ -1,0 +1,84 @@
+/**
+ * Panel animations
+ * Animations for various panels and containers
+ */
+
+/* Settings panel animations */
+.settings-panel {
+  /* Base state - panel is hidden at bottom */
+  transform: translateY(100%);
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.settings-panel.visible {
+  /* Visible state - panel is shown */
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.settings-panel.closing {
+  /* Closing state - animates back to bottom */
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Panel content transitions */
+.panel-content {
+  transition: opacity 0.2s ease;
+}
+
+.panel-loading .panel-content {
+  opacity: 0.6;
+}
+
+/* Panel resize animations */
+.resize-handle {
+  transition: background-color 0.2s ease;
+}
+
+.resize-handle:hover {
+  background-color: var(--md-sys-color-primary-container);
+}
+
+/* Panel slide animations */
+.slide-panel {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.slide-panel.from-right {
+  transform: translateX(100%);
+}
+
+.slide-panel.from-right.visible {
+  transform: translateX(0);
+}
+
+.slide-panel.from-bottom {
+  transform: translateY(100%);
+}
+
+.slide-panel.from-bottom.visible {
+  transform: translateY(0);
+}
+
+/* Modal animations */
+.modal-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.visible {
+  opacity: 1;
+}
+
+.modal-content {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-overlay.visible .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}

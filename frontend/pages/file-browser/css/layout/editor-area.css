@@ -12,6 +12,7 @@
   /* Display */
   display: flex;
   flex-direction: column;
+  height: 100%;
   
   /* Styling */
   background-color: var(--md-sys-color-surface);
@@ -38,4 +39,20 @@
   /* Styling */
   overflow-x: auto;
   white-space: nowrap;
+}
+
+/* Editor content with proper sizing */
+.editor-content {
+  flex: 1;
+  overflow: auto;
+  min-height: 0; /* Critical for proper flex behavior */
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .editor-header {
+    height: auto;
+    min-height: 35px;
+    padding: 4px;
+  }
 }

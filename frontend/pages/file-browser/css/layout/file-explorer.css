@@ -11,6 +11,7 @@
   /* Display */
   display: flex;
   flex-direction: column;
+  height: 100%;
   
   /* Styling */
   background-color: var(--md-sys-color-surface-container-low);
@@ -39,7 +40,10 @@
   letter-spacing: 0.05em;
 }
 
+/* Make file list container properly handle overflow */
 .file-list-container {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0; /* Critical for proper flex behavior */
 }

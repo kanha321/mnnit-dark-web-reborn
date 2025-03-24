@@ -1,0 +1,140 @@
+/**
+ * Tab animations
+ * Animations for editor tabs and tab panels
+ */
+
+/* Tab transitions */
+.editor-tab {
+  transition: background-color 0.2s ease, 
+              transform 0.2s ease, 
+              opacity 0.2s ease;
+}
+
+.editor-tab:hover {
+  transform: translateY(-1px);
+}
+
+/* Active tab indicator animation */
+.editor-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--md-sys-color-primary);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+  transform-origin: center;
+  animation: tabActivate 0.3s ease forwards;
+}
+
+@keyframes tabActivate {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Tab close animation */
+.tab-close {
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.tab-close:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+  opacity: 1;
+  animation: spin 0.3s ease;
+}
+
+/* Tab open animation */
+.editor-tab.new {
+  animation: tabOpen 0.3s ease;
+}
+
+@keyframes tabOpen {
+  from { 
+    transform: translateY(-10px);
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1; 
+  }
+}
+
+/* Tab close animation */
+.editor-tab.closing {
+  animation: tabClose 0.2s ease forwards;
+}
+
+@keyframes tabClose {
+  from { 
+    transform: translateY(0) scale(1);
+    opacity: 1; 
+  }
+  to { 
+    transform: translateY(-10px) scale(0.8);
+    opacity: 0; 
+  }
+}
+
+/* Tab content transitions */
+.tab-content {
+  transition: opacity 0.2s ease;
+}
+
+.tab-content.active {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Preview tab styling */
+.editor-tab.preview-tab {
+  background-color: var(--md-sys-color-surface-container);
+  border-bottom: 1px dashed var(--md-sys-color-primary);
+  animation: previewTabPulse 2s infinite alternate ease-in-out;
+}
+
+.editor-tab.preview-tab.active {
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.editor-tab.preview-tab .tab-name {
+  font-style: italic;
+  color: var(--md-sys-color-primary);
+}
+
+@keyframes previewTabPulse {
+  0% { border-bottom-color: var(--md-sys-color-primary-container); }
+  100% { border-bottom-color: var(--md-sys-color-primary); }
+}
+
+/* Preview tab appear/disappear animation */
+.editor-tab.preview-tab {
+  animation: previewTabAppear 0.12s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes previewTabAppear {
+  from {
+    opacity: 0.7;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* When removing the preview tab */
+.editor-tab.preview-tab.removing {
+  animation: previewTabDisappear 0.12s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes previewTabDisappear {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}

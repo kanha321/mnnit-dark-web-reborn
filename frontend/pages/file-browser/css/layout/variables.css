@@ -4,6 +4,7 @@
  */
 
 :root {
+  /* Default panel dimensions with clear units */
   --explorer-width: 250px;
-  --panel-height: 22%;
+  /* Removed panel height variables */
 }

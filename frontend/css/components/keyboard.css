@@ -1,0 +1,171 @@
+/**
+ * Styles for keyboard navigation and Vim-mode UI elements
+ */
+
+/* Mode indicator */
+.mode-indicator {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 1000;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.8;
+  transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+}
+
+/* Mode-specific styles */
+.mode-indicator.mode-normal {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.mode-indicator.mode-insert {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.mode-indicator.mode-command {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+/* Mode indicator hover effect */
+.mode-indicator:hover {
+  opacity: 1;
+}
+
+/* Command display */
+.command-display {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 16px;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 200px;
+  text-align: left;
+  opacity: 0.95;
+}
+
+/* Keyboard active element highlight */
+.kb-active {
+  outline: 2px solid var(--md-sys-color-primary) !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hide focus outlines when in keyboard navigation mode */
+body.keyboard-nav :focus:not(:focus-visible) {
+  outline: none !important;
+}
+
+/* Document mode indicators */
+body.mode-normal {
+  /* Subtle cursor change for different modes */
+  cursor: default;
+}
+
+body.mode-insert {
+  cursor: text;
+}
+
+body.mode-command {
+  cursor: text;
+}
+
+/* Keyboard shortcuts help panel */
+.keyboard-help {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  z-index: 1001;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow: auto;
+  display: none;
+}
+
+.keyboard-help.visible {
+  display: block;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.keyboard-help h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-primary);
+}
+
+.keyboard-help-section {
+  margin-bottom: 20px;
+}
+
+.keyboard-help-section h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: var(--md-sys-color-secondary);
+}
+
+.shortcut-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 16px;
+}
+
+.shortcut-key {
+  font-family: 'JetBrains Mono', monospace;
+  padding: 2px 6px;
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+}
+
+.shortcut-description {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.9rem;
+  align-self: center;
+}
+
+/* Keyboard shortcut overlay hints */
+.key-hint {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+  border-radius: 3px;
+  padding: 1px 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+body.keyboard-hints-visible .key-hint {
+  opacity: 0.9;
+}
+
+/* Animation for appearing elements */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

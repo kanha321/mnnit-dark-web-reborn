@@ -1,0 +1,80 @@
+/**
+ * Interaction animations
+ * Animations for user interactions (hover, click, etc)
+ */
+
+/* Hover effect animations */
+.hover-float {
+  transition: transform 0.3s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-4px);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 8px var(--md-sys-color-primary);
+  transform: scale(1.02);
+}
+
+.hover-grow {
+  transition: transform 0.2s ease;
+}
+
+.hover-grow:hover {
+  transform: scale(1.05);
+}
+
+.hover-highlight {
+  transition: background-color 0.2s ease;
+}
+
+.hover-highlight:hover {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+/* Click effect */
+.click-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.click-ripple:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.click-ripple:focus:after {
+  animation: ripple 0.6s ease-out;
+}
+
+.click-shrink {
+  transition: transform 0.1s ease;
+}
+
+.click-shrink:active {
+  transform: scale(0.95);
+}
+
+/* Focus effects */
+.focus-outline {
+  transition: outline 0.2s ease;
+}
+
+.focus-outline:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}

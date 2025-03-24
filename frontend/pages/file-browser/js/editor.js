@@ -2,12 +2,14 @@
  * Editor component functionality
  */
 
-import { getFileDetails } from '../../../utils/api.js'; // Changed from mock-api to real api
+import { getFileDetails } from '../../../utils/api.js'; 
 import { createElement, showToast } from '../../../utils/dom.js';
 import { state } from './main.js';
-import { updateInfoPanel } from './info-panel.js';
+// Removed import for info-panel.js
 import { getFileIcon } from './utils.js';
 import { getUIIcon, setIcon } from '../../../utils/icons.js';
+import { getCachedContent, getContentWithCache } from '../../../utils/cache-manager.js';
+import { isTextFile, getSyntaxLanguage } from '../../../utils/file-utils.js';
 
 // Initialize the editor area
 export function initEditor() {
@@ -34,8 +36,22 @@ export async function openFileInEditor(file) {
     if (existingIndex !== -1) {
       state.activeFile = state.openFiles[existingIndex];
     } else {
+      // Create a new file object
+      const newFile = { 
+        ...file, 
+        details,
+        isLoading: true
+      };
+      
+      // Check if content is already cached
+      const cachedContent = getCachedContent(file.path);
+      if (cachedContent) {
+        newFile.content = cachedContent;
+        newFile.isLoading = false;
+      }
+      
       // Add to open files
-      state.activeFile = { ...file, details };
+      state.activeFile = newFile;
       state.openFiles.push(state.activeFile);
     }
     
@@ -45,8 +61,40 @@ export async function openFileInEditor(file) {
     // Update editor content
     updateEditorContent(state.activeFile);
     
-    // Update file info panel
-    updateInfoPanel(state.activeFile);
+    // Removed updateInfoPanel call
+    
+    // If content not cached, fetch it
+    if (state.activeFile.isLoading) {
+      try {
+        const content = await getContentWithCache(file.path);
+        
+        // Find the file again in case tabs have changed
+        const currentIndex = state.openFiles.findIndex(f => f.path === file.path);
+        if (currentIndex !== -1) {
+          state.openFiles[currentIndex].content = content;
+          state.openFiles[currentIndex].isLoading = false;
+          
+          // Only update if this is still the active file
+          if (state.activeFile && state.activeFile.path === file.path) {
+            updateEditorContent(state.openFiles[currentIndex]);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading file content:', error);
+        showToast(`Error loading content: ${error.message}`, 'error');
+        
+        // Update file to show error state
+        const currentIndex = state.openFiles.findIndex(f => f.path === file.path);
+        if (currentIndex !== -1) {
+          state.openFiles[currentIndex].isLoading = false;
+          state.openFiles[currentIndex].loadError = error.message;
+          
+          if (state.activeFile && state.activeFile.path === file.path) {
+            updateEditorContent(state.openFiles[currentIndex]);
+          }
+        }
+      }
+    }
     
   } catch (error) {
     showToast(`Failed to open file: ${error.message}`, 'error');
@@ -71,7 +119,7 @@ export function updateEditorTabs() {
         state.activeFile = file;
         updateEditorTabs();
         updateEditorContent(file);
-        updateInfoPanel(file);
+        // Removed updateInfoPanel call
       }
     });
 
@@ -131,11 +179,11 @@ export function closeFile(file) {
       
       if (state.activeFile) {
         updateEditorContent(state.activeFile);
-        updateInfoPanel(state.activeFile);
+        // Removed updateInfoPanel call
       } else {
         // No files are open
         initEditor();
-        updateInfoPanel();
+        // Removed updateInfoPanel call
       }
     }, 200);
   } else {
@@ -152,16 +200,16 @@ export function closeFile(file) {
     
     if (state.activeFile) {
       updateEditorContent(state.activeFile);
-      updateInfoPanel(state.activeFile);
+      // Removed updateInfoPanel call
     } else {
       // No files are open
       initEditor();
-      updateInfoPanel();
+      // Removed updateInfoPanel call
     }
   }
 }
 
-// Update the editor content
+// Update the editor content with cached content or loading state
 export function updateEditorContent(file) {
   const editorContent = document.getElementById('editor-content');
   if (!editorContent) return;
@@ -172,54 +220,36 @@ export function updateEditorContent(file) {
   setTimeout(() => {
     editorContent.innerHTML = '';
     
-    const fileType = file.details.type || '';
+    if (!file) {
+      renderEmptyState(editorContent);
+      return;
+    }
+    
+    const fileType = file.details?.type || '';
     
     // For images
     if (fileType.startsWith('image/')) {
-      const imagePreview = createElement('div', {
-        className: 'image-preview scale-in'
-      }, [
-        createElement('img', {
-          src: `data:${fileType};base64,iVBORw0KGgoAAAANSUhEUgAAAGQAA...`,
-          alt: file.name
-        })
-      ]);
-      editorContent.appendChild(imagePreview);
-    } else if (fileType.includes('text/') || fileType.includes('application/json') || 
-        fileType.includes('javascript') || fileType.includes('css') ||
-        file.name.match(/\.(txt|md|js|html|css|json|xml|py|c|cpp|h|java)$/i)) {
-      
-      // For text files, add animation
-      const codePreview = createElement('pre', {
-        className: 'code-preview slide-in-up',
-        textContent: generateMockContent(file)
-      });
-      editorContent.appendChild(codePreview);
-    } else {
-      // For other files
-      const placeholder = createElement('div', {
-        className: 'preview-placeholder scale-in',
-      }, [
-        createElement('div', {
-          className: 'preview-placeholder-icon'
-        }),
-        createElement('p', {
-          textContent: `${file.name} (${file.details.type || 'Unknown type'})`,
-          className: 'fade-in'
-        }),
-        createElement('p', {
-          textContent: 'Preview not available for this file type',
-          className: 'fade-in',
-          style: 'animation-delay: 0.1s'
-        })
-      ]);
-      editorContent.appendChild(placeholder);
-      
-      // Set the icon separately using the setIcon function
-      const iconElement = editorContent.querySelector('.preview-placeholder-icon');
-      if (iconElement) {
-        setIcon(iconElement, file.isDirectory ? getFolderIconByName(file.name) : getFileIcon(file.name));
+      renderImagePreview(file, editorContent);
+    } 
+    // For text files
+    else if (isTextFile(file.name)) {
+      if (file.isLoading) {
+        // Show loading state
+        renderLoadingState(file, editorContent);
+      } else if (file.loadError) {
+        // Show error state
+        renderErrorState(file, editorContent);
+      } else if (file.content) {
+        // Show actual content
+        renderTextContent(file, editorContent);
+      } else {
+        // Fallback to mock content if no real content is available
+        renderMockContent(file, editorContent);
       }
+    } 
+    // For other files
+    else {
+      renderUnsupportedFileType(file, editorContent);
     }
     
     // Remove fade-out and add fade-in
@@ -232,6 +262,158 @@ export function updateEditorContent(file) {
     }, 300);
     
   }, 150); // Short delay for the fade-out animation
+}
+
+// Render empty state when no file is selected
+function renderEmptyState(container) {
+  const placeholder = createElement('div', {
+    className: 'preview-placeholder scale-in',
+  }, [
+    createElement('div', {
+      className: 'preview-placeholder-icon'
+    }),
+    createElement('p', {
+      textContent: 'Select a file to preview or edit',
+      className: 'fade-in'
+    })
+  ]);
+  container.appendChild(placeholder);
+  
+  // Set the icon separately
+  const iconElement = container.querySelector('.preview-placeholder-icon');
+  if (iconElement) {
+    setIcon(iconElement, getUIIcon('file'));
+  }
+  
+  // Remove fade-out and add fade-in
+  container.classList.remove('fade-out');
+  container.classList.add('fade-in');
+}
+
+// Render image preview
+function renderImagePreview(file, container) {
+  const imagePreview = createElement('div', {
+    className: 'image-preview scale-in'
+  }, [
+    createElement('img', {
+      src: `data:${file.details.type};base64,iVBORw0KGgoAAAANSUhEUgAAAGQAA...`,
+      alt: file.name
+    })
+  ]);
+  container.appendChild(imagePreview);
+}
+
+// Render text content with syntax highlighting
+function renderTextContent(file, container) {
+  // Get syntax language for highlighting
+  const language = getSyntaxLanguage(file.name);
+  
+  // Create pre and code elements for syntax highlighting
+  const preElement = createElement('pre', {
+    className: 'code-preview slide-in-up'
+  });
+  
+  const codeElement = createElement('code', {
+    className: `language-${language}`,
+    textContent: file.content
+  });
+  
+  preElement.appendChild(codeElement);
+  container.appendChild(preElement);
+  
+  // Apply syntax highlighting if highlightjs is available
+  if (window.hljs) {
+    window.hljs.highlightElement(codeElement);
+  }
+}
+
+// Render loading state while content is being fetched
+function renderLoadingState(file, container) {
+  const loadingElement = createElement('div', {
+    className: 'code-preview-loading slide-in-up'
+  }, [
+    createElement('div', {
+      className: 'loading-spinner'
+    }),
+    createElement('p', {
+      textContent: `Loading ${file.name}...`,
+      className: 'loading-text'
+    })
+  ]);
+  container.appendChild(loadingElement);
+}
+
+// Render error state if content fetch failed
+function renderErrorState(file, container) {
+  const errorElement = createElement('div', {
+    className: 'code-preview-error slide-in-up'
+  }, [
+    createElement('div', {
+      className: 'error-icon'
+    }),
+    createElement('p', {
+      textContent: `Error loading ${file.name}`,
+      className: 'error-title'
+    }),
+    createElement('p', {
+      textContent: file.loadError || 'Unknown error occurred',
+      className: 'error-message'
+    }),
+    createElement('button', {
+      textContent: 'Retry',
+      className: 'md-button',
+      onClick: () => openFileInEditor(file)
+    })
+  ]);
+  container.appendChild(errorElement);
+}
+
+// Render mock content as fallback
+function renderMockContent(file, container) {
+  // Create pre and code elements for syntax highlighting
+  const preElement = createElement('pre', {
+    className: 'code-preview slide-in-up'
+  });
+  
+  const codeElement = createElement('code', {
+    className: `language-${getSyntaxLanguage(file.name)}`,
+    textContent: generateMockContent(file)
+  });
+  
+  preElement.appendChild(codeElement);
+  container.appendChild(preElement);
+  
+  // Apply syntax highlighting if highlightjs is available
+  if (window.hljs) {
+    window.hljs.highlightElement(codeElement);
+  }
+}
+
+// Render unsupported file type message
+function renderUnsupportedFileType(file, container) {
+  const placeholder = createElement('div', {
+    className: 'preview-placeholder scale-in',
+  }, [
+    createElement('div', {
+      className: 'preview-placeholder-icon'
+    }),
+    createElement('p', {
+      textContent: `${file.name} (${file.details?.type || 'Unknown type'})`,
+      className: 'fade-in'
+    }),
+    createElement('p', {
+      textContent: 'Preview not available for this file type',
+      className: 'fade-in',
+      style: 'animation-delay: 0.1s'
+    })
+  ]);
+  container.appendChild(placeholder);
+  
+  // Set the icon separately using the setIcon function
+  const iconElement = container.querySelector('.preview-placeholder-icon');
+  if (iconElement) {
+    setIcon(iconElement, getFileIcon(file.name));
+  }
 }
 
 // Export generateMockContent for use in hover-preview.js

@@ -1,15 +1,16 @@
-/* Main stylesheet that imports all theme files */
+/* Main stylesheet for application */
 
-/* Import Material Design theme files */
-@import './material-theme/common.css';
-@import './material-theme/light.css';
+/* Import theme files */
 @import './material-theme/dark.css';
-
-/* Import component styles */
-@import './components/icon-button.css';
+@import './material-theme/light.css';
+@import './material-theme/common.css';
+@import './material-theme/scrollbars.css';
 
 /* Import global styles */
 @import './global.css';
+@import './components/icon-button.css';
+@import './components/toast.css';
+@import './components/keyboard.css'; /* Add keyboard component styles */
 
 /* Set default theme */
 :root {
