@@ -10,23 +10,33 @@
   /* Display */
   display: flex;
   flex-direction: column;
+  
+  /* Prevent overall scrolling */
   overflow: hidden;
   
   /* Styling */
   background-color: var(--md-sys-color-surface-container-low);
   border-top: 1px solid var(--md-sys-color-outline-variant);
+  
+  /* Ensure it takes appropriate height */
+  height: var(--panel-height);
 }
 
 .panel-header {
+  /* Fixed height */
+  height: 30px;
+  min-height: 30px; /* Ensure consistent height */
+  
   /* Display */
   display: flex;
   align-items: center;
-  height: 30px;
+  justify-content: space-between;
   
   /* Styling */
   padding: 0 16px;
   background-color: var(--md-sys-color-surface-container-lowest);
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  z-index: 2;
 }
 
 .panel-header-title {
@@ -37,8 +47,36 @@
   letter-spacing: 0.05em;
 }
 
+.panel-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.panel-tab {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--md-sys-color-on-surface-variant);
+  transition: background-color 0.2s;
+}
+
+.panel-tab:hover {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.panel-tab.active {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-primary);
+}
+
 .panel-content {
+  /* Take remaining space with scrolling */
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+  
+  /* Smoother scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }

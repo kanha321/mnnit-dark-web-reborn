@@ -3,11 +3,25 @@
  * Defines the overall structure of the file browser interface
  */
 
+/* Ensure the body takes up full viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent page scrolling */
+}
+
+/* Make the file browser fill available space */
 .file-browser {
   /* Positioning */
-  position: relative;
-  margin-top: 40px;
-  height: calc(100vh - 40px);
+  position: fixed;
+  top: 40px; /* Account for header height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh - 40px); /* Full viewport minus header */
+  width: 100vw;
+  margin: 0;
   
   /* Grid layout */
   display: grid;
@@ -17,4 +31,40 @@
     "activity sidebar editor"
     "activity sidebar editor"
     "activity sidebar panel";
+}
+
+/* Fix main header positioning */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 1000;
+}
+
+/* Ensure panels handle overflow correctly */
+.file-explorer, .editor-area, .panel {
+  overflow: hidden; /* Hide overflow at container level */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Allow scrolling in the file list */
+.file-list-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Allow scrolling in the editor content */
+.editor-content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Allow scrolling in the panel content */
+.panel-content {
+  flex: 1;
+  overflow: auto;
 }

@@ -1,41 +1,79 @@
 /**
- * Editor area styles
- * Main content area for viewing and editing files
+ * Editor area layout
+ * Controls the main editor/content area
  */
 
-/* Editor area */
+/* Editor area container */
 .editor-area {
   /* Grid positioning */
   grid-area: editor;
-  position: relative;
   
-  /* Display */
+  /* Layout */
   display: flex;
   flex-direction: column;
   
   /* Styling */
   background-color: var(--md-sys-color-surface);
+  
+  /* Prevent overall scrolling, we'll scroll the content instead */
+  overflow: hidden;
+  
+  /* Ensure it takes full height */
+  height: 100%;
 }
 
+/* Editor header (with breadcrumbs) */
 .editor-header {
-  /* Display */
+  /* Fixed height and position */
+  height: 30px;
+  min-height: 30px; /* Ensure consistent height */
+  padding: 0 16px;
+  
+  /* Layout */
   display: flex;
   align-items: center;
-  height: 35px;
   
   /* Styling */
-  padding: 0 8px;
   background-color: var(--md-sys-color-surface-container-low);
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  z-index: 5; /* Stay above content when scrolling */
 }
 
-.breadcrumb-bar {
-  /* Display */
-  display: flex;
-  align-items: center;
-  height: 100%;
+/* Editor tabs container */
+.editor-tabs {
+  /* Fixed height */
+  height: 35px;
+  min-height: 35px; /* Ensure consistent height */
   
-  /* Styling */
+  /* Handle overflow for many tabs */
   overflow-x: auto;
   white-space: nowrap;
+  
+  /* Hide scrollbar but allow scrolling */
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    height: 2px;
+  }
+  
+  /* Styling */
+  background-color: var(--md-sys-color-surface-container-lowest);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  z-index: 4;
+}
+
+/* Editor content area */
+.editor-content {
+  /* Take remaining space */
+  flex: 1;
+  
+  /* Enable scrolling */
+  overflow: auto;
+  
+  /* Smoother scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Styling */
+  position: relative;
+  padding: 0;
 }
