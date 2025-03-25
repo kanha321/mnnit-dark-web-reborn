@@ -7,7 +7,7 @@ import { createHttpError, handleApiError } from './error-handler.js';
 import { setLoadingState, createOperationKey } from './api-loading.js';
 
 // Base URL for API endpoints - use explicit development URL
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'http://172.31.129.81:3000/api';
 
 /**
  * Generic fetch wrapper with error handling
